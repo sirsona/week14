@@ -21,3 +21,30 @@
 
 - Classification: Server Component
 - Reason: Static content only — no state or events
+
+## Day 2
+
+### lib/db.js
+
+- **Classification:** Server-only (runs only on server)
+- **Reason:** Uses `pg` database driver with connection pool. Never runs in browser.
+
+### app/leads/page.js
+
+- **Classification:** Server Component
+- **Reason:** Queries database directly; no client-side hooks or events.
+
+### app/leads/[id]/page.js
+
+- **Classification:** Server Component
+- **Reason:** Queries database directly; uses `notFound()` from `next/navigation`.
+
+### app/leads/loading.js
+
+- **Classification:** Server Component
+- **Reason:** Static skeleton UI with no interactivity.
+
+### app/leads/error.js
+
+- **Classification:** Client Component
+- **Reason:** Uses `"use client"` to handle error state and `reset` function.
