@@ -54,6 +54,7 @@ export default function RootLayout({ children }) {
             </Link>
 
             <div style={{ display: "flex", gap: "1.5rem" }}>
+              <Link href={"/products"}>Products</Link>
               <Link href="/leads" style={{ color: "inherit" }}>
                 Leads
               </Link>
