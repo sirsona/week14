@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "next": "16.2.12",
-    "pg": "^8.22.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -19,5 +18,22 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "tailwindcss": "^4"
-  }
+  },
+  "description": "A full‑stack e‑commerce platform built with Next.js, Express, and PostgreSQL.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirsona/week14.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/sirsona/week14/issues"
+  },
+  "homepage": "https://github.com/sirsona/week14#readme"
 }
