@@ -8,7 +8,6 @@ export const leadsRouter = Router();
 leadsRouter.get(
   "/",
   asyncHandler(async (req, res) => {
-    console.log(process.env.DB_PASSWORD);
     const { rows } = await query(
       "SELECT id, name, wa_phone, status, channel FROM leads ORDER BY created_at DESC LIMIT 50",
     );
