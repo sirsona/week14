@@ -1,13 +1,16 @@
-import pool from "@/lib/db";
+import { apiFetch } from "@/lib/api";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default async function LeadsPage() {
   // Simulate slow query (remove after testing)
   await new Promise((r) => setTimeout(r, 1500));
 
-  const { rows } = await pool.query(
-    "SELECT id, name, wa_phone, status, channel FROM leads ORDER BY created_at DESC LIMIT 50",
-  );
+  const leads = await apiFetch("/api/leads/");
+
+  if (!leads || leads.error) {
+    notFound();
+  }
 
   return (
     <main className="max-w-6xl mx-auto p-6">
@@ -24,7 +27,7 @@ export default async function LeadsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {rows.map((lead) => (
+            {leads.map((lead) => (
               <tr
                 key={lead.id}
                 className="hover:bg-gray-50 transition cursor-pointer"
@@ -84,7 +87,7 @@ export default async function LeadsPage() {
         </table>
       </div>
 
-      {rows.length === 0 && (
+      {leads.length === 0 && (
         <p className="text-gray-500 mt-6 text-center">No leads found.</p>
       )}
     </main>
