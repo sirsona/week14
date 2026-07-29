@@ -3,8 +3,12 @@ import { notFound } from "next/navigation";
 
 export default async function LeadDetailPage({ params }) {
   const { id } = await params;
-
-  const lead = await apiFetch(`/api/leads/${id}`);
+  let lead;
+  try {
+    lead = await apiFetch(`/api/leads/${id}`);
+  } catch {
+    notFound();
+  }
 
   if (!lead || lead.error) {
     notFound();

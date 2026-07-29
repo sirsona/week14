@@ -9,18 +9,24 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
 
-  const product = await apiFetch(`/api/products/${slug}`);
-
-  if (!product || product.error) {
-    notFound();
+  try {
+    const product = await apiFetch(`/api/products/${slug}`);
+    return { title: product.name };
+  } catch {
+    return { title: product ? product.name : "Not found" };
   }
-  return { title: product ? product.name : "Not found" };
 }
 
 export default async function ProductPage({ params }) {
   const { slug } = await params;
 
-  const product = await apiFetch(`/api/products/${slug}`);
+  // const product = await apiFetch(`/api/products/${slug}`);
+  let product;
+  try {
+    product = await apiFetch(`/api/products/${slug}`);
+  } catch {
+    notFound();
+  }
 
   if (!product) notFound();
 
