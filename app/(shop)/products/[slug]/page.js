@@ -38,6 +38,7 @@ export default async function ProductPage({ params }) {
             src={product.image_url}
             alt={product.name}
             fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="object-contain"
             loading="eager"
           />
