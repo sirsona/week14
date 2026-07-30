@@ -1,4 +1,5 @@
 import { apiFetch } from "@/lib/api";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -20,7 +21,6 @@ export async function generateMetadata({ params }) {
 export default async function ProductPage({ params }) {
   const { slug } = await params;
 
-  // const product = await apiFetch(`/api/products/${slug}`);
   let product;
   try {
     product = await apiFetch(`/api/products/${slug}`);
@@ -33,11 +33,13 @@ export default async function ProductPage({ params }) {
   return (
     <main className="max-w-4xl mx-auto p-6">
       <div className="grid md:grid-cols-2 gap-8">
-        <div>
-          <img
+        <div className="relative aspect-square rounded-lg shadow overflow-hidden">
+          <Image
             src={product.image_url}
             alt={product.name}
-            className="w-full h-auto rounded-lg shadow"
+            fill
+            className="object-contain"
+            loading="eager"
           />
         </div>
         <div>
