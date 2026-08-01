@@ -2,12 +2,13 @@ import "dotenv/config";
 import { Pool } from "pg";
 
 export const pool = new Pool({
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT, 10),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: process.env.PG_HOST,
+  port: parseInt(process.env.PG_PORT, 10),
+  user: process.env.PG_USER,
+  password: process.env.PG_PASSWORD,
+  database: process.env.PG_DATABASE,
   max: 10,
+  ssl: { rejectUnauthorized: false },
 });
 
 export async function query(text, params) {
