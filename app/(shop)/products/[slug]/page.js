@@ -3,10 +3,14 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const { products } = await apiFetch("/api/products");
-  return products.map((p) => ({ slug: p.slug }));
+  try {
+    const { products } = await apiFetch("/api/products");
+    return products.map((p) => ({ slug: p.slug }));
+  } catch {
+    console.warn("Skipping static generation — API unreachable");
+    return [];
+  }
 }
-
 export async function generateMetadata({ params }) {
   const { slug } = await params;
 
