@@ -6,12 +6,26 @@ export default async function LeadsPage() {
   // Simulate slow query (remove after testing)
   await new Promise((r) => setTimeout(r, 1500));
 
-  const leads = await apiFetch("/api/leads/");
+ let leads = [];
+  let error = null;
 
-  if (!leads || leads.error) {
-    notFound();
+  try {
+    leads = await apiFetch("/api/leads/");
+  } catch (err) {
+    console.warn("Could not fetch leads — API unreachable during build");
+    error = "Unable to load leads at this time.";
   }
 
+  if (error || !leads || leads.length === 0) {
+    return (
+      <main className="max-w-6xl mx-auto p-6">
+        <h1 className="text-2xl font-bold mb-6">Leads</h1>
+        <p className="text-gray-500 mt-6 text-center">
+          {error || "No leads found."}
+        </p>
+      </main>
+    );
+  }
   return (
     <main className="max-w-6xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-6">Leads</h1>
