@@ -14,7 +14,25 @@ export const metadata = {
 };
 
 export default async function ProductsPage() {
-  const { products } = await apiFetch("/api/products");
+ try {
+    const data = await apiFetch("/api/products");
+    products = data.products;
+  } catch (err) {
+    // If API is unreachable (e.g., during build), gracefully fall back
+    console.warn("Could not fetch products — showing empty state");
+    error = "We're having trouble loading products. Please try again later.";
+  }
+
+  if (error || products.length === 0) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <h1 className="text-3xl font-bold mb-8">All Products</h1>
+        <p className="text-gray-500 text-center py-12">
+          {error || "No products available at the moment."}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div>
