@@ -14,6 +14,8 @@ export const metadata = {
 };
 
 export default async function ProductsPage() {
+   let products = [];
+  let error = null; 
  try {
     const data = await apiFetch("/api/products");
     products = data.products;
